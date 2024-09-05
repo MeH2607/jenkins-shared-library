@@ -1,5 +1,6 @@
-// I din Shared Library (vars/runChildPipeline.groovy)
 def call(String childJobName, Map params = [:]) {
+    // Kør child pipeline uden at returnere build variabler
     def result = build job: childJobName, parameters: params.collect { k, v -> string(name: k, value: v) }, propagate: false
-    return result.getBuildVariables() // Henter environment-variabler fra child pipeline
+    // Returner ikke build variabler her, da parent pipeline håndterer artifacts
+    return result
 }
